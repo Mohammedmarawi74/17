@@ -1,7 +1,7 @@
 
 import React, { useState, useRef } from 'react';
 import { SlideContent, AppState } from './types';
-import { DEFAULT_SLIDE, THEMES } from './constants';
+import { DEFAULT_SLIDE, THEMES, LOGO_OPTIONS } from './constants';
 import SlideCanvas from './components/SlideCanvas';
 import { generateSlideContent } from './services/geminiService';
 import { toBlob } from 'html-to-image';
@@ -16,7 +16,6 @@ const App: React.FC = () => {
 
   const [prompt, setPrompt] = useState('');
   const canvasRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const activeSlide = state.slides.find(s => s.id === state.activeSlideId) || state.slides[0];
 
@@ -39,17 +38,6 @@ const App: React.FC = () => {
       alert('حدث خطأ أثناء توليد المحتوى');
     } finally {
       setState(prev => ({ ...prev, isGenerating: false }));
-    }
-  };
-
-  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        updateSlide({ logoUrl: reader.result as string });
-      };
-      reader.readAsDataURL(file);
     }
   };
 
@@ -275,14 +263,44 @@ const App: React.FC = () => {
               </section>
 
               <section className="pt-6 border-t border-slate-800">
-                <h2 className="text-slate-400 font-black text-xs uppercase tracking-widest mb-4">رفع شعار مخصص</h2>
-                <div className="space-y-4">
-                  <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleLogoUpload} />
-                  <div className="flex gap-2">
-                    <button onClick={() => fileInputRef.current?.click()} className="flex-grow py-3 bg-slate-800 border border-slate-700 rounded-xl text-[11px] font-black hover:bg-slate-700 transition flex items-center justify-center gap-2"><span>📁</span><span>اختر صورة الشعار</span></button>
-                    {activeSlide.logoUrl && <button onClick={() => updateSlide({ logoUrl: undefined })} className="px-4 py-3 bg-red-900/20 border border-red-900/40 text-red-400 rounded-xl text-xs hover:bg-red-900/30 transition">إلغاء</button>}
-                  </div>
+                <h2 className="text-slate-400 font-black text-xs uppercase tracking-widest mb-4">اختر شعاراً</h2>
+                <div className="grid grid-cols-2 gap-3">
+                  {LOGO_OPTIONS.map((logo) => (
+                    <button
+                      key={logo.id}
+                      onClick={() => updateSlide({ logoOption: logo.id as 1 | 2 | 3 | 4, logoUrl: logo.src })}
+                      className={`relative p-3 rounded-2xl border-2 transition-all overflow-hidden group ${
+                        activeSlide.logoOption === logo.id
+                        ? 'border-emerald-500 bg-emerald-500/10 ring-2 ring-emerald-500/20'
+                        : 'border-slate-700 bg-slate-800 hover:border-slate-600'
+                      }`}
+                    >
+                      <div className="aspect-square flex items-center justify-center bg-white rounded-xl p-2 mb-2">
+                        <img 
+                          src={logo.src} 
+                          alt={logo.alt}
+                          className="max-w-full max-h-full object-contain"
+                        />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-slate-300">{logo.alt}</span>
+                        {activeSlide.logoOption === logo.id && (
+                          <span className="text-emerald-500 text-lg">✓</span>
+                        )}
+                      </div>
+                    </button>
+                  ))}
                 </div>
+                
+                {activeSlide.logoOption && (
+                  <button
+                    onClick={() => updateSlide({ logoOption: null, logoUrl: undefined })}
+                    className="w-full mt-3 py-2.5 bg-red-900/20 border border-red-900/40 text-red-400 rounded-xl text-xs font-black hover:bg-red-900/30 transition flex items-center justify-center gap-2"
+                  >
+                    <span>🗑️</span>
+                    <span>إزالة الشعار</span>
+                  </button>
+                )}
               </section>
             </div>
           )}

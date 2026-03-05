@@ -15,6 +15,7 @@ export interface SlideContent {
   footerWebsite: string;
   footerBrand: string;
   logoUrl?: string;
+  logoOption?: 1 | 2 | 3 | 4 | null;
   customCss?: string;
   primaryColor?: string;
   secondaryColor?: string;

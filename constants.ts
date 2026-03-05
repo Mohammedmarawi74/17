@@ -19,6 +19,13 @@ export const THEMES = [
   { name: 'الوضع الداكن', primary: '#2dd4bf', secondary: '#f43f5e', bg: '#0f172a', text: '#f1f5f9' },
 ];
 
+export const LOGO_OPTIONS = [
+  { id: 1, src: '/logooo/logo-1.png', alt: 'شعار 1' },
+  { id: 2, src: '/logooo/logo-2.png', alt: 'شعار 2' },
+  { id: 3, src: '/logooo/logo-3.png', alt: 'شعار 3' },
+  { id: 4, src: '/logooo/logo-4.png', alt: 'شعار 4' },
+];
+
 export const DEFAULT_SLIDE: SlideContent = {
   id: '1',
   topTitle: 'برنامج التدريب التعاوني',
@@ -43,4 +50,5 @@ export const DEFAULT_SLIDE: SlideContent = {
   secondaryColor: THEMES[0].secondary,
   backgroundColor: THEMES[0].bg,
   textColor: THEMES[0].text,
+  logoOption: null,
 };

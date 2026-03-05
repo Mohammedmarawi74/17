@@ -183,33 +183,39 @@ const SlideCanvas: React.FC<SlideCanvasProps> = ({ content, canvasRef }) => {
         </div>
       </div>
 
-      {/* Footer Branded Bar - Height reduced and secured at the bottom */}
-      <div className="poster-footer px-10 py-6 border-t border-slate-100 flex items-center justify-between relative z-10 bg-white/50 backdrop-blur-md mt-auto h-[120px]">
-        <div className="flex flex-col text-right">
-           <div className="flex items-center gap-3 justify-end mb-1">
-             <span className="poster-footer-contact text-2xl font-black" style={{ color: pColor }}>{content.footerPhone}</span>
-             <svg className="w-5 h-5" viewBox="0 0 24 24" fill={pColor}>
-                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-             </svg>
-           </div>
-           <span className="poster-footer-link text-lg font-medium text-slate-400">{content.footerWebsite}</span>
+      {/* Footer - New Design: Clean minimal with 5px accent bar */}
+      <div className="poster-footer mt-auto relative z-10">
+        {/* Text Row */}
+        <div className="flex items-center justify-between px-8 py-5 bg-white/80 backdrop-blur-sm border-t border-slate-100">
+          {/* Right Side: منصة المستثمر */}
+          <div className="flex items-center">
+            <span 
+              className="text-[24px] font-black tracking-wide"
+              style={{ color: sColor }}
+            >
+              منصة المستثمر
+            </span>
+          </div>
+
+          {/* Left Side: al_investor.com */}
+          <div className="flex items-center">
+            <span 
+              className="text-[24px] font-black tracking-wide"
+              style={{ color: pColor }}
+            >
+              al_investor.com
+            </span>
+          </div>
         </div>
         
-        <div className="flex items-center gap-4">
-          <div className="text-right flex flex-col">
-            <span className="text-[11px] text-slate-400 font-bold uppercase tracking-widest mb-0.5" style={{ color: txtColor, opacity: 0.5 }}>{content.footerBrand}</span>
-            <span className="poster-footer-name text-2xl font-black" style={{ color: txtColor }}>AgriServ</span>
-          </div>
-          <div 
-            className="w-16 h-16 rounded-[1.5rem] flex items-center justify-center p-2.5 shadow-xl relative overflow-hidden"
-            style={{ border: `2px solid ${pColor}20`, backgroundColor: 'white' }}
-          >
-            <div 
-              className="w-10 h-10" 
-              style={{ backgroundColor: sColor, borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%' }} 
-            />
-          </div>
-        </div>
+        {/* 5px Color Bar */}
+        <div 
+          className="w-full"
+          style={{ 
+            height: '5px',
+            background: `linear-gradient(90deg, ${pColor} 0%, ${sColor} 50%, ${pColor} 100%)`
+          }}
+        />
       </div>
     </div>
   );

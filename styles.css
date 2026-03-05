@@ -223,12 +223,6 @@ body {
   }
 }
 
-@media (min-width: 1536px) {
-  .2xl\:scale-90 {
-    transform: scale(0.9);
-  }
-}
-
 /* Dark Mode Base
    ---------------------------- */
 .bg-\[\#020617\] {
@@ -1482,6 +1476,14 @@ body {
 .scale-y-110 {
   --tw-scale-y: 1.1;
   transform: scaleY(var(--tw-scale-y, 1));
+}
+
+/* Responsive Scale Classes
+   ---------------------------- */
+@media (min-width: 1536px) {
+  .scale-2xl-90 {
+    transform: scale(0.9);
+  }
 }
 
 /* Interactivity
