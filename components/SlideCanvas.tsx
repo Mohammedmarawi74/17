@@ -17,7 +17,7 @@ const SlideCanvas: React.FC<SlideCanvasProps> = ({ content, canvasRef }) => {
     <div 
       ref={canvasRef}
       id="slide-canvas"
-      className="poster-root relative w-[800px] h-[1000px] overflow-hidden shadow-2xl flex flex-col font-['IBM_Plex_Sans_Arabic']"
+      className="poster-root relative w-[800px] h-[1000px] overflow-hidden shadow-2xl flex flex-col"
       style={{ border: `1px solid ${pColor}10`, backgroundColor: bgColor, color: txtColor }}
     >
       {/* Dynamic Style Injection for User Overrides */}
@@ -82,16 +82,16 @@ const SlideCanvas: React.FC<SlideCanvasProps> = ({ content, canvasRef }) => {
         
         {/* Section 1: Majors */}
         <div className="poster-section">
-          <div className="flex justify-end mb-4">
+          <div className="flex justify-start mb-4">
             <div 
-              className="poster-section-badge text-white px-8 py-2 rounded-l-full text-xl font-bold shadow-lg transform translate-x-10"
+              className="poster-section-badge text-white px-8 py-2 rounded-l-full text-xl font-bold shadow-lg transform -translate-x-10"
               style={{ backgroundColor: pColor }}
             >
               {content.section1Title}
             </div>
           </div>
           
-          <div className="flex justify-center gap-12 pt-1">
+          <div className="flex justify-center gap-16 pt-1 px-12">
             {content.section1Items.slice(0, 2).map((item, idx) => (
               <div key={idx} className="poster-item-box flex flex-col items-center gap-3 group">
                 <div 
@@ -120,16 +120,16 @@ const SlideCanvas: React.FC<SlideCanvasProps> = ({ content, canvasRef }) => {
 
         {/* Section 2: List */}
         <div className="poster-section mt-2">
-          <div className="flex justify-end mb-4">
+          <div className="flex justify-start mb-4">
             <div 
-              className="poster-section-badge text-white px-8 py-2 rounded-l-full text-xl font-bold shadow-lg transform translate-x-10"
+              className="poster-section-badge text-white px-8 py-2 rounded-l-full text-xl font-bold shadow-lg transform -translate-x-10"
               style={{ backgroundColor: pColor }}
             >
               {content.section2Title}
             </div>
           </div>
           
-          <div className="poster-requirements-container rounded-[2rem] p-6 mr-12 relative overflow-hidden border border-slate-200/50 backdrop-blur-sm shadow-inner min-h-[180px]" style={{ backgroundColor: `${pColor}05` }}>
+          <div className="poster-requirements-container rounded-[2rem] p-6 ml-12 relative overflow-hidden border border-slate-200/50 backdrop-blur-sm shadow-inner min-h-[180px]" style={{ backgroundColor: `${pColor}05` }}>
              <ul className="space-y-4">
                {content.section2Items.slice(0, 4).map((item, idx) => (
                  <li key={idx} className="poster-list-item flex items-start gap-4 text-right">
@@ -148,23 +148,29 @@ const SlideCanvas: React.FC<SlideCanvasProps> = ({ content, canvasRef }) => {
         {/* Action / Deadline Area - Fixed positioning relative to bottom */}
         <div className="flex justify-center items-center gap-8 mt-2 px-6">
           <div className="poster-qr-area flex-shrink-0">
-            <div className="p-2.5 bg-white rounded-3xl border-[3px] shadow-xl" style={{ borderColor: pColor }}>
-               <div className="w-24 h-24 bg-white relative p-1">
-                 <svg viewBox="0 0 100 100" fill="black">
-                   <rect width="100" height="100" fill="white" />
-                   <rect x="10" y="10" width="30" height="30" />
-                   <rect x="60" y="10" width="30" height="30" />
-                   <rect x="10" y="60" width="30" height="30" />
-                   <rect x="50" y="50" width="40" height="40" opacity="0.8" />
-                   <rect x="15" y="15" width="20" height="20" fill="white" />
-                   <rect x="65" y="15" width="20" height="20" fill="white" />
-                   <rect x="15" y="65" width="20" height="20" fill="white" />
-                 </svg>
-                 <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-6 h-6 bg-white border-2 rounded-lg flex items-center justify-center shadow-sm" style={{ borderColor: pColor }}>
-                       <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: sColor }} />
-                    </div>
-                 </div>
+            <div className="p-2.5 bg-white rounded-3xl border-[3px] shadow-xl overflow-hidden" style={{ borderColor: pColor }}>
+               <div className="w-24 h-24 bg-white relative flex items-center justify-center">
+                 {content.qrCodeUrl ? (
+                   <img src={content.qrCodeUrl} alt="QR Code" className="w-full h-full object-contain" />
+                 ) : (
+                   <>
+                     <svg viewBox="0 0 100 100" fill="black" className="w-full h-full p-1">
+                       <rect width="100" height="100" fill="white" />
+                       <rect x="10" y="10" width="30" height="30" />
+                       <rect x="60" y="10" width="30" height="30" />
+                       <rect x="10" y="60" width="30" height="30" />
+                       <rect x="50" y="50" width="40" height="40" opacity="0.8" />
+                       <rect x="15" y="15" width="20" height="20" fill="white" />
+                       <rect x="65" y="15" width="20" height="20" fill="white" />
+                       <rect x="15" y="65" width="20" height="20" fill="white" />
+                     </svg>
+                     <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-6 h-6 bg-white border-2 rounded-lg flex items-center justify-center shadow-sm" style={{ borderColor: pColor }}>
+                           <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: sColor }} />
+                        </div>
+                     </div>
+                   </>
+                 )}
                </div>
                <div className="text-center mt-1 font-black text-[10px] uppercase tracking-widest" style={{ color: pColor }}>
                   {content.qrCodeText}
@@ -183,36 +189,35 @@ const SlideCanvas: React.FC<SlideCanvasProps> = ({ content, canvasRef }) => {
         </div>
       </div>
 
-      {/* Footer - New Design: Clean minimal with 5px accent bar */}
+      {/* Footer - Professional Branding */}
       <div className="poster-footer mt-auto relative z-10">
-        {/* Text Row */}
-        <div className="flex items-center justify-between px-8 py-5 bg-white/80 backdrop-blur-sm border-t border-slate-100">
-          {/* Right Side: منصة المستثمر */}
+        <div 
+          className="flex items-center justify-between px-10 py-6 border-t backdrop-blur-md"
+          style={{ 
+            backgroundColor: `${bgColor}E6`, 
+            borderColor: `${pColor}15`,
+            color: txtColor
+          }}
+        >
+          {/* Right Side branding */}
           <div className="flex items-center">
-            <span 
-              className="text-[24px] font-black tracking-wide"
-              style={{ color: sColor }}
-            >
-              منصة المستثمر
+            <span className="text-[18px] font-black tracking-tight">
+              منصة المستثمر الاقتصادية
             </span>
           </div>
 
-          {/* Left Side: al_investor.com */}
+          {/* Left Side website */}
           <div className="flex items-center">
-            <span 
-              className="text-[24px] font-black tracking-wide"
-              style={{ color: pColor }}
-            >
-              al_investor.com
+            <span className="text-[18px] font-bold tracking-tight opacity-90">
+              al-investor.com
             </span>
           </div>
         </div>
         
-        {/* 5px Color Bar */}
+        {/* Theme-reflective Accent Bar */}
         <div 
-          className="w-full"
+          className="w-full h-[6px]"
           style={{ 
-            height: '5px',
             background: `linear-gradient(90deg, ${pColor} 0%, ${sColor} 50%, ${pColor} 100%)`
           }}
         />

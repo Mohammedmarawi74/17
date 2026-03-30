@@ -16,12 +16,16 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+body, button, input, textarea, select {
   font-family: 'IBM Plex Sans Arabic', sans-serif;
   background-color: #f8fafc;
   overflow-x: hidden;
   width: 100%;
   height: 100%;
+}
+
+* {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
 }
 
 /* Scrollbar Customization
@@ -872,6 +876,7 @@ body {
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

@@ -21,6 +21,7 @@ export interface SlideContent {
   secondaryColor?: string;
   backgroundColor?: string;
   textColor?: string;
+  qrCodeUrl?: string;
 }
 
 export interface AppState {

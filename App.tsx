@@ -110,7 +110,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen w-full bg-[#1e293b] overflow-hidden font-['IBM_Plex_Sans_Arabic']" dir="rtl">
+    <div className="flex h-screen w-full bg-[#1e293b] overflow-hidden" dir="rtl">
       {/* Sidebar */}
       <div className="w-[400px] bg-[#0f172a] text-slate-300 flex flex-col shadow-2xl border-l border-slate-800 z-[100]">
         {/* Navigation Tabs */}
@@ -259,6 +259,39 @@ const App: React.FC = () => {
                       <span className="text-[10px] font-mono text-slate-400 uppercase">{activeSlide.backgroundColor}</span>
                     </div>
                   </div>
+                </div>
+              </section>
+
+              <section className="pt-6 border-t border-slate-800">
+                <h2 className="text-slate-400 font-black text-xs uppercase tracking-widest mb-4">رفع باركود مخصص</h2>
+                <div className="space-y-4">
+                  <div className="flex flex-col items-center justify-center border-2 border-dashed border-slate-700 rounded-2xl p-6 bg-slate-800/50 hover:border-emerald-500 transition-all cursor-pointer group relative overflow-hidden">
+                    <input 
+                      type="file" 
+                      accept="image/*"
+                      className="absolute inset-0 opacity-0 cursor-pointer z-10"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            updateSlide({ qrCodeUrl: reader.result as string });
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                    <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">🖼️</div>
+                    <span className="text-[11px] font-bold text-slate-400 text-center">اسحب صورة الباركود أو انقر هنا</span>
+                  </div>
+                  {activeSlide.qrCodeUrl && (
+                    <button 
+                      onClick={() => updateSlide({ qrCodeUrl: undefined })}
+                      className="w-full py-2 bg-red-900/20 text-red-400 rounded-xl text-[10px] font-black hover:bg-red-900/30 transition-all"
+                    >
+                      حذف الباركود الحالي
+                    </button>
+                  )}
                 </div>
               </section>
 
